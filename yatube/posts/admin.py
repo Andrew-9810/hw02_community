@@ -3,6 +3,7 @@ from django.contrib import admin
 # Register your models here.
 from .models import Post, Group
 
+
 class PostAdmin(admin.ModelAdmin):
     # Перечисляем поля, которые должны отображаться в админке.
     list_display = (
@@ -20,11 +21,8 @@ class PostAdmin(admin.ModelAdmin):
     # Это свойство сработает для всех колонок: где пусто - там будет эта строка
     empty_value_display = '-пусто-'
 
+
 # При регистрации содели Post источником конфигурации для нее назнвчаем
-# класс PostAdmin
+# класс PostAdmin.
 admin.site.register(Post, PostAdmin)
-
-#class GroupAdmin(admin.ModelAdmin):
-#    list_display = ('pk', 'title', 'slug', 'description')
-
 admin.site.register(Group)
