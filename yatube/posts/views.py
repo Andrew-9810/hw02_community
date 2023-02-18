@@ -19,7 +19,7 @@ def group_posts(request, slug):
     template = 'posts/group_list.html'
     group = get_object_or_404(Group, slug=slug)
     posts = (
-        Post.objects.filter(group=group)[:SHOW_QUANTITY]
+        group.posts_group.all()[:SHOW_QUANTITY]
     )
     context = {
         'group': group,
