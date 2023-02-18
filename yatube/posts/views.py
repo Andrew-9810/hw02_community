@@ -3,13 +3,10 @@ from .models import Post, Group
 
 
 def index(request):
+    """Главная страница"""
+    SHOW_QUANTITY: int = 10
     template = 'posts/index.html'
-    # Одна строка вместо тысячи слов на SQL
-    # в переменную posts будет сохранена выборка из 10 объектов модели Post,
-    # отсортированных по полю pub_date по убыванию
-    # (от больших значений к меньшим).
-    posts = Post.objects.order_by('-pub_date')[:10]
-    # В словарье context отправляем информацию в шаблон
+    posts = Post.objects.order_by()[:SHOW_QUANTITY]
     context = {
         'posts': posts
     }
@@ -17,9 +14,13 @@ def index(request):
 
 
 def group_posts(request, slug):
+    """Страница постов отсортированных по группам"""
+    SHOW_QUANTITY: int = 10
     template = 'posts/group_list.html'
     group = get_object_or_404(Group, slug=slug)
-    posts = Post.objects.filter(group=group).order_by('-pub_date')[:10]
+    posts = (
+        Post.objects.filter(group=group)[:SHOW_QUANTITY]
+    )
     context = {
         'group': group,
         'posts': posts,
