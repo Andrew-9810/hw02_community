@@ -20,4 +20,6 @@ urlpatterns = [
     # Добавляем к путям из пиложения posts пространство имен.
     path('', include('posts.urls', namespace='posts_namespace')),
     path('admin/', admin.site.urls),
+    path('auth/', include('users.urls')),
+    path('auth/', include('django.contrib.auth.urls')),
 ]
