@@ -17,7 +17,7 @@ def group_posts(request, slug):
     """Страница постов отсортированных по группам."""
     template = 'posts/group_list.html'
     group = get_object_or_404(Group, slug=slug)
-    posts = (group.posts.all()[:SHOW_QUANTITY])
+    posts = (group.posts_group.all()[:SHOW_QUANTITY])
     context = {
         'group': group,
         'posts': posts,

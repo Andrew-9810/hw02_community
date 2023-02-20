@@ -28,8 +28,11 @@ class Post(models.Model):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        related_name='posts'
+        related_name='posts_group'
     )
+
+    def __str__(self):
+        return self.text
 
     class Meta:
         ordering = ['-pub_date']
