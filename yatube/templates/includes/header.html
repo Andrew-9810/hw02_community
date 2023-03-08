@@ -10,6 +10,29 @@
           <!-- тег span используется для добавления нужных стилей отдельным участкам текста -->
           <span style="color:red">Ya</span>tube
         </a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'users:logout' %}">
+          <div class="card-header">
+            Выход
+          </div>
+        </a>
+        <a href="{% url 'users:password_change' %}">
+          <div class="card-header">
+            Изменить пароль
+          </div>
+        </a>
+        {% else %}
+        <a href="{% url 'users:signup' %}">
+          <div class="card-header">
+            Зарегистрироваться
+        </div>
+        </a>
+        <a href="{% url 'users:login' %}">
+          <div class="card-header">
+            Войти
+          </div>
+        </a>
+        {% endif %} 
       </div>
     </nav>      
 </header>
