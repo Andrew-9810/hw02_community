@@ -10,7 +10,7 @@
   Записи сообщества {{ group }}
 </p>
 <article>
-  {% for var in posts %}
+  {% for var in page_obj %}
   <ul>
     <li>
       Автор: {{ var.author.get_full_name }}
@@ -22,5 +22,6 @@
   <p>{{ var.text }}</p>
   {% if not forloop.last %}<hr>{% endif %}
   {% endfor %}
+  {% include 'posts/includes/paginator.html' %}
 </article>
 {% endblock %}
