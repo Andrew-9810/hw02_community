@@ -73,4 +73,16 @@ urlpatterns = [
             template_name='users/password_reset_complete.html'),
         name='password_reset_done'
     ),
+    # Страница оповещения успешного заполнения формы Контакты
+    path(
+        'thank-you/',
+        views.thank,
+        name='thank-you'
+    ),
+    # Страница формы Контакты
+    path(
+        'user_contact/',
+        views.user_contact,
+        name='user_contact'
+    ),
 ]

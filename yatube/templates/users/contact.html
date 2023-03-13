@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Контакты{% endblock %}
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-md-8 p-5">
+      <div class="card">
+        <div class="card-header">
+          Контакты
+        </div>
+        <div class="card-body">
+          <p>
+            <form method="post">
+                {{ form.as_p }}
+              <p><imput tupe="submit" value="Отправить"></p><!-- посмотреть в формах паролей -->
+              </form>
+          </p>
+        </div> <!-- card body -->
+      </div> <!-- card -->
+    </div> <!-- col -->
+  </div> <!-- row -->
+  {% endblock %}

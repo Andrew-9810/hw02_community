@@ -1,7 +1,7 @@
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
-from .forms import CreationForm
-from django.shortcuts import redirect
+from .forms import CreationForm, ContactForm
+from django.shortcuts import redirect, render
 
 
 class SignUp(CreateView):
@@ -17,3 +17,21 @@ def authorized_only(func):
             return func(request, *args, **kwargs)
         return redirect('/auth/login/')
     return check_user
+
+
+def user_contact(request):
+    """Контакты"""
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('thank-you')
+        #  Создать шаблон успешного заполнения.
+        return render(request, '/users/contact.html', {'form': form})
+    form = ContactForm()
+    return render(request, 'users/contact.html', {'form': form})
+
+
+def thank(request):
+    """Успешное заполнение формы Контакты"""
+    return render(request, 'users/thankyou.html')
