@@ -12,4 +12,16 @@ urlpatterns = [
         views.group_posts,
         name='group_list'
     ),
+    # Профайл пользователя
+    path(
+        'profile/<str:username>/',
+        views.profile,
+        name='profile'
+    ),
+    # Подробная информация
+    path(
+        'posts/<int:post_id>/',
+        views.post_detail,
+        name='post_detail'
+    ),
 ]

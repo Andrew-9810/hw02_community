@@ -10,12 +10,14 @@
         <div class="card-body">
           <p>
             <form method="post">
-                {{ form.as_p }}
-              <p><imput tupe="submit" value="Отправить"></p><!-- посмотреть в формах паролей -->
-              </form>
+              {{ form.as_p }}
+              <button>
+                <imput tupe="submit" value="Отправить">
+               </button>
+            </form>
           </p>
         </div> <!-- card body -->
       </div> <!-- card -->
     </div> <!-- col -->
   </div> <!-- row -->
-  {% endblock %}
+{% endblock %}
