@@ -77,7 +77,7 @@ urlpatterns = [
     path(
         'thank-you/',
         views.thank,
-        name='thank-you'
+        name='thank_you'
     ),
     # Страница формы Контакты
     path(

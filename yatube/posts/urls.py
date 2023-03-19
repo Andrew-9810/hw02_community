@@ -24,4 +24,16 @@ urlpatterns = [
         views.post_detail,
         name='post_detail'
     ),
+    # Создание постов
+    path(
+        'create/',
+        views.post_create,
+        name='post_create'
+    ),
+    # Редактирование постов
+    path(
+        'posts/<post_id>/edit/',
+        views.post_edit,
+        name='post_edit'
+    ),
 ]

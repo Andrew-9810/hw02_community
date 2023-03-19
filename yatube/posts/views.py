@@ -1,8 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Group
 from users.views import authorized_only
 from django.core.paginator import Paginator
 from django.contrib.auth import get_user_model
+from .forms import PostForm
+from django.contrib.auth.decorators import login_required
 
 User = get_user_model()
 SHOW_QUANTITY: int = 10
@@ -38,7 +40,7 @@ def group_posts(request, slug):
 
 
 def profile(request, username):
-    """Запрос к модели и создание словаря контекста"""
+    """Страница просмотра всех постов автора"""
     author = get_object_or_404(User, username=username)
     posts = author.posts.all()
     count_post = posts.count()
@@ -55,7 +57,7 @@ def profile(request, username):
 
 
 def post_detail(request, post_id):
-    """Страница просмотра отдельного поста"""
+    """Страница просмотра отдельного поста автора"""
     post = get_object_or_404(Post, id=post_id)
     if post.group_id is None:
         group = ""
@@ -71,3 +73,43 @@ def post_detail(request, post_id):
         'count': count_post
     }
     return render(request, template, context)
+
+
+@login_required
+def post_create(request):
+    """Страница создания постов"""
+    template = 'posts/create_post.html'
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            form.save()
+            return redirect('posts:profile', username=request.user.username)
+        return render(request, template, {'form': form})
+    form = PostForm()
+    return render(request, template, {'form': form})
+
+
+@login_required
+def post_edit(request, post_id):
+    """Страница редактирования постов"""
+    template = 'posts/create_post.html'
+    is_edit = True
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            text = form.cleaned_data['text']
+            group = form.cleaned_data['group']
+            post = Post.objects.filter(pk=post_id).update(
+                text=text,
+                group=group
+            )
+            return redirect('posts:profile', username=request.user.username)
+        return render(request, template, {'form': form})
+    post = Post.objects.get(pk=post_id)
+    if request.user == post.author:
+        form = PostForm(instance=post)
+        return render(request, template, {'form': form, 'is_edit': is_edit})
+    return redirect('posts:profile', username=request.user.username)

@@ -25,9 +25,8 @@ def user_contact(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('thank-you')
-        #  Создать шаблон успешного заполнения.
-        return render(request, '/users/contact.html', {'form': form})
+            return redirect('users:thank_you')
+        return render(request, 'users/contact.html', {'form': form})
     form = ContactForm()
     return render(request, 'users/contact.html', {'form': form})
 
